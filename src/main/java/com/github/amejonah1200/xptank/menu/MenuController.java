@@ -42,29 +42,20 @@ public final class MenuController implements Listener {
     menu.getViewer().closeInventory();
   }
   
-  /**
-   * Internal method, don't use it externally!
-   */
   @EventHandler
-  public void onClick(InventoryClickEvent event) {
+  private void onClick(InventoryClickEvent event) {
     XPTankMenu menu = menus.get(event.getWhoClicked());
     if (menu == null || event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) return;
     menu.click(event);
   }
   
-  /**
-   * Internal method, don't use it externally!
-   */
   @EventHandler
-  public void onClose(InventoryCloseEvent event) {
+  private void onClose(InventoryCloseEvent event) {
     menus.remove(event.getPlayer());
   }
   
-  /**
-   * Internal method, don't use it externally!
-   */
   @EventHandler
-  public void onSlotChange(PlayerItemHeldEvent event) {
+  private void onSlotChange(PlayerItemHeldEvent event) {
     event.setCancelled(
         event.isCancelled() || menus.containsKey(event.getPlayer()) && menus.get(event.getPlayer()).isOpened());
   }

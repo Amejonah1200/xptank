@@ -22,26 +22,21 @@ public class XPTankInteractionListener implements Listener {
     this.plugin = plugin;
   }
   
-  /**
-   * Internal method, don't use it externally!
-   */
   @EventHandler
-  public void onInteract(PlayerInteractEvent event) {
+  private void onInteract(PlayerInteractEvent event) {
     if (event.getItem() != null && event.getItem().getType() != Material.AIR &&
         NBTTagger.hasTag("xptank", event.getItem())) {
       event.setCancelled(true);
       event.getPlayer().updateInventory();
       if (!VersionUtils.isInOffHand(event)) {
         if (event.getItem().getAmount() > 1) {
-          event.getPlayer()
-              .sendMessage(plugin.getSimpleMessageSystem().translate("messages.error.multiple_tanks"));
+          event.getPlayer().sendMessage(plugin.getSimpleMessageSystem().translate("messages.error.multiple_tanks"));
         } else {
           XPTank xpTank = XPTank.parseXPTank(event.getItem());
           if (xpTank == null) return;
           if ((xpTank.isOnUse() && !event.getPlayer().hasPermission("apxptank.xptank.oneuse")) ||
               (!xpTank.isOnUse() && !event.getPlayer().hasPermission("apxptank.xptank.multiuse"))) {
-            event.getPlayer()
-                .sendMessage(plugin.getSimpleMessageSystem().translate("messages.error.noperm.use_tank"));
+            event.getPlayer().sendMessage(plugin.getSimpleMessageSystem().translate("messages.error.noperm.use_tank"));
             return;
           }
           if (!xpTank.isOnUse() && event.getAction().toString().startsWith("LEFT")) {
@@ -52,8 +47,8 @@ public class XPTankInteractionListener implements Listener {
               return;
             }
             int xp = xpTank.getExperience();
-            XPTankEvent xpTankEvent = new XPTankEvent(event.getPlayer(), xpTank,
-                XPTankEvent.XPTankAction.EXP_REMOVE, xp);
+            XPTankEvent xpTankEvent = new XPTankEvent(event.getPlayer(), xpTank, XPTankEvent.XPTankAction.EXP_REMOVE,
+                xp);
             Bukkit.getPluginManager().callEvent(xpTankEvent);
             if (xpTankEvent.isCancelled()) {
               return;
@@ -69,11 +64,8 @@ public class XPTankInteractionListener implements Listener {
     }
   }
   
-  /**
-   * Internal method, don't use it externally!
-   */
   @EventHandler
-  public void onSneak(PlayerToggleSneakEvent event) {
+  private void onSneak(PlayerToggleSneakEvent event) {
     Player player = event.getPlayer();
     if (!event.getPlayer().isSneaking()) return;
     XPTank xpTank = XPTank.parseXPTank(player.getItemInHand());
