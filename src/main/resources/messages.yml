@@ -1,0 +1,53 @@
+gui:
+  title: "XPTank"
+  preview:
+    message: "&6XPTank: &c%level%/%lvllimit%"
+    placeholders: ["level", "lvllimit"]
+  round:
+    player: "&6Round player's Exp."
+    xptank: "&6Round XPTank's Exp."
+  add:
+    player:
+      message: "&aAdd &6%amount% &a levels to player."
+      placeholders: ["amount"]
+    xptank:
+      message: "&aAdd &6%amount% &a levels to xptank."
+      placeholders: ["amount"]
+  remove:
+    player:
+      message: "&cRemove &6%amount% &c levels from player."
+      placeholders: ["amount"]
+    xptank:
+      message: "&cRemove &6%amount% &c levels from xptank."
+      placeholders: ["amount"]
+xptank:
+  multiuse:
+    name:
+      message: "&6XPTank&7: &c%level%/%lvllimit%"
+      placeholders: ["level", "lvllimit"]
+    description:
+      message:
+        - "&7This item can store your experience. It has actually &6%level% &7levels."
+        - "&7This tank can hold up to %lvllimit% levels."
+        - "&7 - Left click: &6Open GUI."
+        - "&7 - Right click: &6Retrieve all Exp."
+        - "&7 - Sneak: &6Store all Exp."
+        - "&8Experience points stored: %points%"
+      placeholders:  ["level", "points", "lvllimit"]
+  oneuse:
+    name:
+      message: "&6XPTank&7: &c%level% &c(OneUse)"
+      placeholders: ["level"]
+    description:
+      message:
+        - "&7This item stores &6%level% &7levels."
+        - "&7You can retrieve all stored experience with right click."
+        - "&cThis tank can be used one: retrieving all experience, then it will break."
+        - "&8Experience points stored: %points%"
+      placeholders: ["level", "points"]
+messages:
+  error:
+    noperm:
+      command: "&cYou're not permitted to do that."
+      use_tank: "&cYou are not allowed to use this tank."
+    multiple_tanks: "&cPlease unstack these xptanks in order to use them."
