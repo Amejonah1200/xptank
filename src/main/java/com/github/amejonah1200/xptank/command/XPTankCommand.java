@@ -3,6 +3,7 @@ package com.github.amejonah1200.xptank.command;
 import com.github.amejonah1200.xptank.XPTankPlugin;
 import com.github.amejonah1200.xptank.experience.XPTank;
 import com.github.amejonah1200.xptank.experience.XPUtils;
+import com.google.common.primitives.Ints;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -38,25 +39,17 @@ public class XPTankCommand implements CommandExecutor {
           break;
         case 3:
         case 4:
-          int lvl;
-          try {
-            lvl = Integer.parseInt(args[2]);
-            if (0 > lvl || lvl > 21863) throw new NumberFormatException();
-          } catch (NumberFormatException e) {
+          Integer lvl;
+          lvl = Ints.tryParse(args[2]);
+          if (lvl == null || 0 > lvl || lvl > 21863) {
             sender.sendMessage("§c<lvl> must be an integer between 0 and 21863 (bounds inclusive).");
             return true;
           }
           XPTank xpTank;
           if (args.length == 4) {
-            int lvllimit;
-            try {
-              lvllimit = Integer.parseInt(args[3]);
-              if (1 > lvllimit || lvllimit > 21863) {
-                sender.sendMessage("§c<lvllimit> must be an integer between 1 and 21863 (bounds inclusive).");
-                return true;
-              }
-              xpTank = new XPTank(XPUtils.getExpFromLevel(lvl), lvllimit);
-            } catch (NumberFormatException e) {
+            Integer lvllimit;
+            lvllimit = Ints.tryParse(args[3]);
+            if (lvllimit == null) {
               switch (args[3].toLowerCase()) {
                 case "true":
                 case "false":
@@ -67,7 +60,10 @@ public class XPTankCommand implements CommandExecutor {
                   sender.sendMessage("§c/xptank give <playername|me|all> <lvl> [true/false]");
                   return true;
               }
-            }
+            } else if (1 > lvllimit || lvllimit > 21863) {
+              sender.sendMessage("§c<lvllimit> must be an integer between 1 and 21863 (bounds inclusive).");
+              return true;
+            } else xpTank = new XPTank(XPUtils.getExpFromLevel(lvl), lvllimit);
           } else xpTank = new XPTank(XPUtils.getExpFromLevel(lvl), false);
           final ItemStack tankItem = xpTank.build();
           if ("me".equalsIgnoreCase(args[1])) {
