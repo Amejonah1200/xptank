@@ -1,0 +1,27 @@
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "6.0.0"
+}
+
+repositories {
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly "org.spigotmc:spigot:1.16.1-R0.1-SNAPSHOT"
+    implementation "com.github.johnnyjayjay:compatre:v0.2.1-alpha"
+    implementation "io.github.amejonah:simple-message-system:1.0-stable"
+}
+
+shadowJar {
+    archivesBaseName = 'APXPTank'
+    destinationDirectory = file("M:/APPlugin/server/1.8.8 spigot/plugins")
+}
+
+compileJava.options.encoding = "UTF-8"
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
